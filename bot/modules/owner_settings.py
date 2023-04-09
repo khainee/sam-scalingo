@@ -3,7 +3,7 @@ from subprocess import Popen, run as srun
 from pyrogram.filters import regex, command
 from pyrogram import filters
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
-from bot import DATABASE_URL, GLOBAL_EXTENSION_FILTER, LOGGER, TG_MAX_FILE_SIZE, bot, Interval, aria2, config_dict, aria2_options, aria2c_global, get_client, qbit_options, status_reply_dict_lock, status_dict, leech_log
+from bot import DATABASE_URL, GLOBAL_EXTENSION_FILTER, LOGGER, TG_MAX_FILE_SIZE, bot, Interval, aria2, config_dict, aria2_options, aria2c_global, status_reply_dict_lock, status_dict, leech_log
 from bot.helper.ext_utils.bot_commands import BotCommands
 from bot.helper.ext_utils.bot_utils import run_sync, setInterval 
 from bot.helper.ext_utils.db_handler import DbManager
@@ -250,31 +250,6 @@ async def ownerset_callback(client, callback_query):
                     LOGGER.error(e)
             if DATABASE_URL:
                await DbManager().update_aria2(data[3], '')
-    elif data[1] == "qbit":
-        if data[2] == 'qbit_menu':
-            globals()['START'] = 0
-            await edit_menus(message, "qbit")
-        elif data[2] == "editqbit" and STATE == 'edit':
-            await update_buttons(message, data[3], data[2]) 
-        elif data[2] == 'editqbit' and STATE == 'view':
-            value = qbit_options[data[3]]
-            if len(str(value)) > 200:
-                await query.answer()
-                filename = f"{data[2]}.txt"
-                with open(filename, 'w', encoding='utf-8') as f:
-                    f.write(f'{value}')
-                await sendFile(message, filename)
-                return
-            if value == '':
-                value = None
-            await query.answer(text=f'{value}', show_alert=True) 
-        elif data[2] == 'emptyqbit':
-            await query.answer()
-            await run_sync(get_client().app_set_preferences, {data[3]: ''})
-            qbit_options[data[3]] = ''
-            await edit_menus(message, 'qbit')
-            if DATABASE_URL:
-               await DbManager().update_qbittorrent(data[2], '')  
     elif data[1] == 'edit':
         await query.answer()
         globals()['STATE'] = 'edit'
