@@ -21,7 +21,6 @@ from bot.helper.ext_utils.rclone_utils import is_rclone_config, is_remote_select
 from bot.helper.mirror_leech_utils.download_utils.aria2_download import add_aria2c_download
 from bot.helper.mirror_leech_utils.download_utils.gd_downloader import add_gd_download
 from bot.helper.mirror_leech_utils.download_utils.mega_download import add_mega_download
-from bot.helper.mirror_leech_utils.download_utils.qbit_downloader import add_qb_torrent
 from bot.helper.mirror_leech_utils.download_utils.telegram_downloader import TelegramDownloader
 from bot.modules.listener import MirrorLeechListener
 
@@ -228,8 +227,6 @@ Number should be always before |newname or pswd:
         await add_gd_download(link, f'{DOWNLOAD_DIR}{listener.uid}', listener, name)   
     elif is_mega_link(link):
         await add_mega_download(link, f'{DOWNLOAD_DIR}{listener.uid}/', listener, name)
-    elif is_magnet(link) or ospath.exists(link):
-        await add_qb_torrent(link, f'{DOWNLOAD_DIR}{listener.uid}', listener)
     else:
         if len(mesg) > 1:
             ussr = mesg[1]
