@@ -1,7 +1,7 @@
 from os import path as ospath, makedirs
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import PyMongoError
-from bot import DATABASE_URL, user_data, rss_dict, LOGGER, bot_id, config_dict, aria2_options, qbit_options, botloop
+from bot import DATABASE_URL, user_data, rss_dict, LOGGER, bot_id, config_dict, aria2_options, botloop
 
 
 
