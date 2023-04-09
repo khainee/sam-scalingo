@@ -191,21 +191,6 @@ if len(GD_INDEX_URL) == 0:
 VIEW_LINK = environ.get('VIEW_LINK', '')
 VIEW_LINK = VIEW_LINK.lower() == 'true'
 
-LOCAL_MIRROR = environ.get('LOCAL_MIRROR', '')
-LOCAL_MIRROR = LOCAL_MIRROR.lower() == 'true'
-
-RC_INDEX_USER = environ.get('RC_INDEX_USER', '')
-RC_INDEX_USER = 'admin' if len(RC_INDEX_USER) == 0 else RC_INDEX_USER
-
-RC_INDEX_PASS= environ.get('RC_INDEX_PASS', '')
-RC_INDEX_PASS = 'admin' if len(RC_INDEX_PASS) == 0 else RC_INDEX_PASS
-
-RC_INDEX_URL = environ.get('RC_INDEX_URL', '')
-RC_INDEX_URL = '' if len(RC_INDEX_URL) == 0 else RC_INDEX_URL
-
-RC_INDEX_PORT = environ.get('RC_INDEX_PORT', '')
-RC_INDEX_PORT= 8080 if len(RC_INDEX_PORT) == 0 else int(RC_INDEX_PORT)
-
 USE_SERVICE_ACCOUNTS = environ.get('USE_SERVICE_ACCOUNTS', '')
 USE_SERVICE_ACCOUNTS = USE_SERVICE_ACCOUNTS.lower() == 'true'
 
@@ -243,24 +228,6 @@ RSS_DELAY = 900 if len(RSS_DELAY) == 0 else int(RSS_DELAY)
 RSS_COMMAND = environ.get('RSS_COMMAND', '')
 if len(RSS_COMMAND) == 0:
     RSS_COMMAND = ''
-
-LOCAL_MIRROR_URL = environ.get('LOCAL_MIRROR_URL', '').rstrip("/")
-if len(LOCAL_MIRROR_URL) == 0:
-    LOGGER.warning('LOCAL_MIRROR_URL not provided!')
-    LOCAL_MIRROR_URL = ''
-
-LOCAL_MIRROR_PORT = environ.get('LOCAL_MIRROR_PORT', '')
-if len(LOCAL_MIRROR_PORT) == 0:
-    LOCAL_MIRROR_PORT = 81
-
-QB_BASE_URL = environ.get('QB_BASE_URL', '').rstrip("/")
-if len(QB_BASE_URL) == 0:
-    LOGGER.warning('QB_BASE_URL not provided!')
-    QB_BASE_URL = '' 
-
-QB_SERVER_PORT = environ.get('QB_SERVER_PORT', '')
-if len(QB_SERVER_PORT) == 0:
-    QB_SERVER_PORT = 80
 
 UPSTREAM_REPO = environ.get('UPSTREAM_REPO', '')
 if len(UPSTREAM_REPO) == 0:
@@ -370,8 +337,6 @@ if not config_dict:
                    'MULTI_RCLONE_CONFIG': MULTI_RCLONE_CONFIG, 
                    'OWNER_ID': OWNER_ID,
                    'PARALLEL_TASKS': PARALLEL_TASKS,
-                   'QB_BASE_URL': QB_BASE_URL,
-                   'QB_SERVER_PORT': QB_SERVER_PORT,
                    'RCLONE_COPY_FLAGS': RCLONE_COPY_FLAGS,
                    'RCLONE_UPLOAD_FLAGS': RCLONE_UPLOAD_FLAGS,
                    'RCLONE_DOWNLOAD_FLAGS': RCLONE_DOWNLOAD_FLAGS,
@@ -386,10 +351,6 @@ if not config_dict:
                    'SEARCH_LIMIT': SEARCH_LIMIT,
                    'LOCAL_MIRROR_PORT': LOCAL_MIRROR_PORT,
                    'SERVICE_ACCOUNTS_REMOTE': SERVICE_ACCOUNTS_REMOTE,
-                   'RC_INDEX_URL': RC_INDEX_URL,
-                   'RC_INDEX_PORT': RC_INDEX_PORT,
-                   'RC_INDEX_USER':RC_INDEX_USER,
-                   'RC_INDEX_PASS': RC_INDEX_PASS,
                    'STATUS_LIMIT': STATUS_LIMIT,
                    'STATUS_UPDATE_INTERVAL': STATUS_UPDATE_INTERVAL,
                    'SUDO_USERS': SUDO_USERS,
