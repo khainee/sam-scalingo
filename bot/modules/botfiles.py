@@ -224,9 +224,6 @@ async def load_config():
      VIEW_LINK = environ.get('VIEW_LINK', '')
      VIEW_LINK = VIEW_LINK.lower() == 'true'
 
-     LOCAL_MIRROR = environ.get('LOCAL_MIRROR', '')
-     LOCAL_MIRROR = LOCAL_MIRROR.lower() == 'true'
-
      RCLONE_COPY_FLAGS = environ.get('RCLONE_COPY_FLAGS', '')
      if len(RCLONE_COPY_FLAGS) == 0:
           RCLONE_COPY_FLAGS = ''
@@ -239,25 +236,12 @@ async def load_config():
      if len(RCLONE_DOWNLOAD_FLAGS) == 0:
           RCLONE_DOWNLOAD_FLAGS = ''
 
-     RC_INDEX_USER = environ.get('RC_INDEX_USER', '')
-     RC_INDEX_USER = 'admin' if len(RC_INDEX_USER) == 0 else RC_INDEX_USER
-
-     RC_INDEX_PASS= environ.get('RC_INDEX_PASS', '')
-     RC_INDEX_PASS = 'admin' if len(RC_INDEX_PASS) == 0 else RC_INDEX_PASS
-
-     RC_INDEX_URL = environ.get('RC_INDEX_URL', '')
-     RC_INDEX_URL = '' if len(RC_INDEX_URL) == 0 else RC_INDEX_URL
-
-     RC_INDEX_PORT = environ.get('RC_INDEX_PORT', '')
-     RC_INDEX_PORT= 8080 if len(RC_INDEX_PORT) == 0 else int(RC_INDEX_PORT)
-
      CMD_INDEX = environ.get('CMD_INDEX', '')
 
      config_dict.update({'AS_DOCUMENT': AS_DOCUMENT,
                          'ALLOWED_CHATS': ALLOWED_CHATS,
                          'AUTO_DELETE_MESSAGE_DURATION': AUTO_DELETE_MESSAGE_DURATION,
-                         'AUTO_MIRROR': AUTO_MIRROR,
-                         'LOCAL_MIRROR_URL': LOCAL_MIRROR_URL,
+                         'AUTO_MIRROR': AUTO_MIRROR,,
                          'BOT_PM': BOT_PM,
                          'BOT_TOKEN': BOT_TOKEN,
                          'CMD_INDEX': CMD_INDEX,
@@ -269,7 +253,6 @@ async def load_config():
                          'GDRIVE_FOLDER_ID': GDRIVE_FOLDER_ID,
                          'IS_TEAM_DRIVE': IS_TEAM_DRIVE,
                          'GD_INDEX_URL': GD_INDEX_URL,
-                         'LOCAL_MIRROR': LOCAL_MIRROR,
                          'LEECH_LOG': LEECH_LOG,
                          'LEECH_SPLIT_SIZE': LEECH_SPLIT_SIZE,
                          'MEGA_API_KEY': MEGA_API_KEY,
@@ -283,8 +266,6 @@ async def load_config():
                          'RCLONE_DOWNLOAD_FLAGS': RCLONE_DOWNLOAD_FLAGS,
                          'REMOTE_SELECTION': REMOTE_SELECTION,
                          'PARALLEL_TASKS': PARALLEL_TASKS,
-                         'QB_BASE_URL': QB_BASE_URL,
-                         'QB_SERVER_PORT': QB_SERVER_PORT,
                          'RSS_USER_SESSION_STRING': RSS_USER_SESSION_STRING,
                          'RSS_CHAT_ID': RSS_CHAT_ID,
                          'RSS_COMMAND': RSS_COMMAND,
@@ -295,10 +276,6 @@ async def load_config():
                          'LOCAL_MIRROR_PORT': LOCAL_MIRROR_PORT,
                          'SERVICE_ACCOUNTS_REMOTE': SERVICE_ACCOUNTS_REMOTE,
                          'SERVER_SIDE': SERVER_SIDE,
-                         'RC_INDEX_URL': RC_INDEX_URL,
-                         'RC_INDEX_PORT': RC_INDEX_PORT,
-                         'RC_INDEX_USER':RC_INDEX_USER,
-                         'RC_INDEX_PASS': RC_INDEX_PASS,
                          'STATUS_LIMIT': STATUS_LIMIT,
                          'STATUS_UPDATE_INTERVAL': STATUS_UPDATE_INTERVAL,
                          'SUDO_USERS': SUDO_USERS,
