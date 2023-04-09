@@ -51,16 +51,7 @@ async def clean_target(path: str):
                 pass
 
 def clean_all():
-    aria2.remove_all(True)
-    get_client().torrents_delete(torrent_hashes="all")
-    if not config_dict['LOCAL_MIRROR']:
-        try:
-            rmtree(DOWNLOAD_DIR)
-        except:
-            pass
-
-async def start_cleanup():
-    get_client().torrents_delete(torrent_hashes="all")
+    aria2.remove_all(True)   
 
 def exit_clean_up(signal, frame):
     try:
