@@ -4,7 +4,7 @@ from html import escape
 from json import loads
 from os import listdir, path as ospath, remove as osremove, walk
 from re import search
-from bot import DOWNLOAD_DIR, LOGGER, LOCAL_MIRROR_PORT, TG_MAX_FILE_SIZE, Interval, status_dict, status_dict_lock, aria2, config_dict
+from bot import DOWNLOAD_DIR, LOGGER, TG_MAX_FILE_SIZE, Interval, status_dict, status_dict_lock, aria2, config_dict
 from pyrogram.enums import ChatType
 from bot.helper.ext_utils.bot_utils import add_index_link, is_archive, is_archive_split, is_first_archive_split
 from bot.helper.ext_utils.exceptions import NotSupportedExtractionArchive
@@ -237,27 +237,7 @@ class MirrorLeechListener:
             await update_all_messages()
             await tg_up.upload()    
         else:
-            if config_dict['LOCAL_MIRROR']:
-                if LOCAL_MIRROR_URL:= config_dict['LOCAL_MIRROR_URL']:
-                    buttons= ButtonMaker()
-                    server_url = f'{LOCAL_MIRROR_URL}:{LOCAL_MIRROR_PORT}/downloads/'
-                    buttons.url_buildbutton("🖥 Local Server", server_url)
-                    size = get_readable_file_size(size)
-                    msg = f"<b>Name: </b><code>{escape(name)}</code>\n\n<b>Size: </b>{size}"
-                    msg += f'\n<b>cc: </b>{self.tag}\n\n'
-                    await sendMarkup(msg, self.message, reply_markup= buttons.build_menu(1))
-                    async with status_dict_lock:
-                        try:
-                            del status_dict[self.uid]
-                        except Exception as e:
-                            LOGGER.error(str(e))
-                        count = len(status_dict)
-                    if count == 0:
-                        await self.clean()
-                    else:
-                        await update_all_messages()
-            else:
-                await RcloneMirror(up_dir, up_name, size, self.user_id, self).mirror()
+            await RcloneMirror(up_dir, up_name, size, self.user_id, self).mirror()
 
     async def onRcloneCopyComplete(self, conf, origin_dir, dest_remote, dest_dir):
         #Calculate Size
