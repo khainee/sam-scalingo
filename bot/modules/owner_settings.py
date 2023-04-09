@@ -11,8 +11,6 @@ from bot.helper.ext_utils.filters import CustomFilters
 from bot.helper.ext_utils.message_utils import editMarkup, sendFile, sendMarkup, sendMessage, update_all_messages
 from bot.helper.ext_utils.button_build import ButtonMaker
 from bot.helper.ext_utils.rclone_data_holder import update_rclone_data
-from bot.modules.search import initiate_search_tools
-
 
 START = 0
 STATE = 'view'
@@ -23,9 +21,6 @@ default_values = {'AUTO_DELETE_MESSAGE_DURATION': 30,
                   'STATUS_UPDATE_INTERVAL': 10,
                   'LEECH_SPLIT_SIZE': TG_MAX_FILE_SIZE,
                   'SEARCH_LIMIT': 0,
-                  'LOCAL_MIRROR_PORT': 81,
-                  'QB_SERVER_PORT': 80,
-                  'RC_INDEX_PORT': 8080,
                   'RSS_DELAY': 900}
 
 
@@ -41,10 +36,7 @@ async def edit_menus(message, edit_type="env"):
     elif edit_type == "aria":
         text, buttons= get_aria_menu()   
         await editMarkup(text, message, reply_markup= buttons.build_menu(2))
-    elif edit_type == "qbit":
-        text, buttons= get_qbit_menu()   
-        await editMarkup(text, message, reply_markup= buttons.build_menu(2))
-
+    
 def get_env_menu():
     msg= f"❇️<b>Config Variables Settings</b>"
     msg += f"\n\n<b>State: {STATE.upper()} </b>"
@@ -64,26 +56,6 @@ def get_env_menu():
     buttons.cb_buildbutton('⏪ BACK', "ownersetmenu^back^env", "footer")
     buttons.cb_buildbutton("NEXT ⏩", f"ownersetmenu^next^env", "footer")
     buttons.cb_buildbutton("✘ Close Menu", "ownersetmenu^close", "footer_second") 
-    return msg, buttons
-
-def get_qbit_menu():
-    msg= "❇️<b>Qbit Settings</b>"
-    msg += f"\n\n<b>State: {STATE.upper()} </b>"
-    buttons= ButtonMaker() 
-    for k in list(qbit_options.keys())[START: 10 + START]:
-        buttons.cb_buildbutton(k, f"ownersetmenu^qbit^editqbit^{k}")
-    if STATE == 'view':
-        buttons.cb_buildbutton('Edit', "ownersetmenu^edit^qbit")
-    else:
-        buttons.cb_buildbutton('View', "ownersetmenu^view^qbit")
-    pages= 0
-    for x in range(0, len(qbit_options)-1, 10):
-        pages = int(x/10)
-    buttons.cb_buildbutton(f"🗓 {int(START/10)}/{pages}", "ownersetmenu^page")
-    buttons.cb_buildbutton('⏪ BACK', "ownersetmenu^back^qbit", "footer")
-    buttons.cb_buildbutton("NEXT ⏩", f"ownersetmenu^next^qbit", "footer")
-    buttons.cb_buildbutton('⬅️ Back', "ownersetmenu^back_menu", "footer_second")
-    buttons.cb_buildbutton("✘ Close Menu", "ownersetmenu^close", "footer_third") 
     return msg, buttons
 
 def get_aria_menu():
@@ -184,22 +156,10 @@ async def ownerset_callback(client, callback_query):
                 aria2_options['bt-stop-timeout'] = '0'
                 if DATABASE_URL:
                     await DbManager().update_aria2('bt-stop-timeout', '0')
-            elif data[3] == 'LOCAL_MIRROR_URL':
-                await (await create_subprocess_exec("pkill", "-9", "-f", "gunicorn web.wserver:app")).wait()
-            elif data[3] == 'QB_BASE_URL':
-                await (await create_subprocess_exec("pkill", "-9", "-f", "gunicorn qbitweb.wserver:app")).wait()
-            elif data[3] == 'LOCAL_MIRROR_PORT':
-                await (await create_subprocess_exec("pkill", "-9", "-f", f"gunicorn web.wserver:app")).wait()
-                await create_subprocess_shell("gunicorn web.wserver:app --bind 0.0.0.0:81")
-            elif data[3] == 'QB_SERVER_PORT':
-                await (await create_subprocess_exec("pkill", "-9", "-f", f"gunicorn qbitweb.wserver:app")).wait()
-                await create_subprocess_shell("gunicorn qbitweb.wserver:app --bind 0.0.0.0:80")
             await query.answer("Reseted")    
             config_dict[data[3]] = value
             if DATABASE_URL:
-                await DbManager().update_config({data[3]: value})
-            if data[3] in ['SEARCH_PLUGINS', 'SEARCH_API_LINK']:
-                await initiate_search_tools()    
+                await DbManager().update_config({data[3]: value})    
             await edit_menus(message, 'env')
     elif data[1] == "aria":
         if data[2] == 'aria_menu':
