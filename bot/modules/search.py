@@ -4,7 +4,7 @@
 from html import escape
 from urllib.parse import quote
 from aiohttp import ClientSession
-from bot import LOGGER, bot, get_client, config_dict
+from bot import LOGGER, bot, config_dict
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from pyrogram import filters
 from bot.helper.ext_utils.bot_commands import BotCommands
