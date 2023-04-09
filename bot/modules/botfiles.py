@@ -14,9 +14,6 @@ from bot.helper.ext_utils.filters import CustomFilters
 from bot.helper.ext_utils.message_utils import editMarkup, sendMarkup, sendMessage, update_all_messages
 from bot.helper.ext_utils.button_build import ButtonMaker
 from bot.helper.ext_utils.rclone_utils import get_rclone_path
-from bot.modules.search import initiate_search_tools
-
-
 
 async def load_config():
      BOT_TOKEN = environ.get('BOT_TOKEN', '')
@@ -193,29 +190,6 @@ async def load_config():
      EQUAL_SPLITS = environ.get('EQUAL_SPLITS', '')
      EQUAL_SPLITS = EQUAL_SPLITS.lower() == 'true'
 
-     LOCAL_MIRROR_PORT = environ.get('LOCAL_MIRROR_PORT', '')
-     LOCAL_MIRROR_PORT = 81 if len(LOCAL_MIRROR_PORT) == 0 else int(LOCAL_MIRROR_PORT)
-     
-     LOCAL_MIRROR_URL = environ.get('LOCAL_MIRROR_URL', '').rstrip("/")
-     if len(LOCAL_MIRROR_URL) == 0:
-          LOCAL_MIRROR_URL = ''
-          await (await create_subprocess_exec("pkill", "-9", "-f", f"gunicorn web.wserver:app")).wait()
-     else:
-          await (await create_subprocess_exec("pkill", "-9", "-f", f"gunicorn web.wserver:app")).wait()
-          await create_subprocess_shell("gunicorn web.wserver:app --bind 0.0.0.0:{LOCAL_MIRROR_PORT}")
-
-     QB_SERVER_PORT = environ.get('QB_SERVER_PORT', '')
-     if len(QB_SERVER_PORT) == 0:
-          QB_SERVER_PORT = 80
-     
-     QB_BASE_URL = environ.get('QB_BASE_URL', '').rstrip("/")
-     if len(QB_BASE_URL) == 0:
-          QB_BASE_URL = ''
-          await (await create_subprocess_exec("pkill", "-9", "-f", f"gunicorn qbitweb.wserver:app")).wait()
-     else:
-          await (await create_subprocess_exec("pkill", "-9", "-f", f"gunicorn qbitweb.wserver:app")).wait()
-          await create_subprocess_shell("gunicorn qbitweb.wserver:app --bind 0.0.0.0:{QB_SERVER_PORT}")
-
      UPSTREAM_REPO = environ.get('UPSTREAM_REPO', '')
      if len(UPSTREAM_REPO) == 0:
           UPSTREAM_REPO = ''
@@ -341,7 +315,6 @@ async def load_config():
 
      if DATABASE_URL:
           await DbManager().update_config(config_dict)                        
-     await initiate_search_tools()
      
 async def config_menu(user_id, message, edit=False):
      path= ospath.join("users", f"{user_id}", "rclone.conf")
