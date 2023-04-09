@@ -8,7 +8,7 @@ from aioshutil import rmtree as aiormtree
 from aiofiles.os import remove as aioremove, path as aiopath, mkdir
 from os import path as ospath
 from re import search as re_search
-from bot import config_dict, DOWNLOAD_DIR, LOGGER, TG_MAX_FILE_SIZE, aria2, get_client, status_dict, status_dict_lock
+from bot import config_dict, DOWNLOAD_DIR, LOGGER, TG_MAX_FILE_SIZE, aria2, status_dict, status_dict_lock
 from json import loads as jsnloads
 from magic import Magic
 from math import ceil
