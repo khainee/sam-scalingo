@@ -14,7 +14,6 @@ from sys import exit
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from aria2p import API as ariaAPI, Client as ariaClient
-from qbittorrentapi import Client as qbitClient
 from subprocess import Popen, run as srun
 from pyrogram import Client
 from bot.conv_pyrogram import Conversation
@@ -35,9 +34,6 @@ load_dotenv('config.env', override=True)
 basicConfig(level= INFO,
     format= "%(asctime)s %(levelname)s %(threadName)s %(name)s %(message)s",
     handlers=[StreamHandler(), FileHandler("botlog.txt")])
-
-def get_client():
-    return qbitClient(host="localhost", port=8090)
 
 Interval = []
 QbInterval = []
@@ -469,19 +465,5 @@ else:
         if op in aria2_options:
             a2c_glo[op] = aria2_options[op]
     aria2.set_global_options(a2c_glo)
-   
-qb_client = get_client()
-if not qbit_options:
-    qbit_options = dict(qb_client.app_preferences())
-    del qbit_options['listen_port']
-    for k in list(qbit_options.keys()):
-        if k.startswith('rss'):
-            del qbit_options[k]
-else:
-    qb_opt = {**qbit_options}
-    for k, v in list(qb_opt.items()):
-        if v in ["", "*"]:
-            del qb_opt[k]
-    qb_client.app_set_preferences(qb_opt)
 
 scheduler = AsyncIOScheduler(timezone=str(get_localzone()), event_loop=botloop)
