@@ -60,7 +60,6 @@ async def get_log(client, message):
     await client.send_document(chat_id= message.chat.id , document= "botlog.txt")
 
 async def main():
-    await search.initiate_search_tools()
     if ospath.isfile(".restartmsg"):
         with open(".restartmsg") as f:
             chat_id, msg_id = map(int, f)
