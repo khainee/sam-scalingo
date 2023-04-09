@@ -36,13 +36,11 @@ basicConfig(level= INFO,
     handlers=[StreamHandler(), FileHandler("botlog.txt")])
 
 Interval = []
-QbInterval = []
 GLOBAL_EXTENSION_FILTER = ['.aria2']
 user_data = {}
 leech_log = []
 remotes_multi= []
 aria2_options = {}
-qbit_options = {}
 
 status_dict_lock = Lock()
 status_reply_dict_lock = Lock()
@@ -93,9 +91,6 @@ if DATABASE_URL:
     if a2c_options := db.settings.aria2c.find_one({'_id': bot_id}):
         del a2c_options['_id']
         aria2_options = a2c_options
-    if qbit_opt := db.settings.qbittorrent.find_one({'_id': bot_id}):
-        del qbit_opt['_id']
-        qbit_options = qbit_opt
     conn.close()
     BOT_TOKEN = environ.get('BOT_TOKEN', '')
     bot_id = BOT_TOKEN.split(':', 1)[0]
@@ -408,11 +403,6 @@ if not config_dict:
                    'USE_SERVICE_ACCOUNTS': USE_SERVICE_ACCOUNTS,
                    'VIEW_LINK': VIEW_LINK,
                    'WEB_PINCODE': WEB_PINCODE}
-
-if LOCAL_MIRROR:
-    Popen(f"gunicorn web.wserver:app --bind 0.0.0.0:{LOCAL_MIRROR_PORT}", shell=True)
-Popen(f"gunicorn qbitweb.wserver:app --bind 0.0.0.0:{QB_SERVER_PORT}", shell=True)
-srun(["qbittorrent-nox", "-d", "--profile=."])
 
 if not ospath.exists('.netrc'):
     srun(["touch", ".netrc"])
