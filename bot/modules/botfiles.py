@@ -241,7 +241,7 @@ async def load_config():
      config_dict.update({'AS_DOCUMENT': AS_DOCUMENT,
                          'ALLOWED_CHATS': ALLOWED_CHATS,
                          'AUTO_DELETE_MESSAGE_DURATION': AUTO_DELETE_MESSAGE_DURATION,
-                         'AUTO_MIRROR': AUTO_MIRROR,,
+                         'AUTO_MIRROR': AUTO_MIRROR,
                          'BOT_PM': BOT_PM,
                          'BOT_TOKEN': BOT_TOKEN,
                          'CMD_INDEX': CMD_INDEX,
