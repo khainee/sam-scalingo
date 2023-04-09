@@ -1,7 +1,7 @@
 from asyncio import create_subprocess_exec
 from signal import signal, SIGINT
 from time import time
-from bot import LOGGER, Interval, QbInterval, bot, botloop, app, bot, scheduler
+from bot import LOGGER, Interval, bot, botloop, app, bot, scheduler
 from os import path as ospath, remove as osremove, execl as osexecl
 from pyrogram.filters import command
 from pyrogram.handlers import MessageHandler
@@ -42,9 +42,6 @@ async def restart(client, message):
     if Interval:
         Interval[0].cancel()
         Interval.clear()
-    if QbInterval:
-        QbInterval[0].cancel()
-        QbInterval.clear()
     await run_sync(clean_all)
     await (await create_subprocess_exec("pkill", "-9", "-f", "gunicorn|aria2c|rclone|qbittorrent-nox|ffmpeg")).wait()
     await (await create_subprocess_exec("python3", "update.py")).wait()
