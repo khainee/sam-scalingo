@@ -65,12 +65,6 @@ class DbManager:
         await self.__db.settings.aria2c.update_one({'_id': bot_id}, {'$set': {key: value}}, upsert=True)
         self.__conn.close()
 
-    async def update_qbittorrent(self, key, value):
-        if self.__err:
-            return
-        await self.__db.settings.qbittorrent.update_one({'_id': bot_id}, {'$set': {key: value}}, upsert=True)
-        self.__conn.close()
-
     async def update_private_file(self, path):
         if self.__err:
             return
