@@ -1,6 +1,6 @@
 from asyncio import create_subprocess_exec
 from configparser import ConfigParser
-from bot import LOGGER, OWNER_ID, bot, config_dict
+from bot import LOGGER, OWNER_ID, bot, RC_INDEX_PORT, RC_INDEX_USER, RC_INDEX_PASS
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from asyncio.subprocess import PIPE
 from pyrogram import filters
@@ -22,7 +22,7 @@ async def serve(client, message):
             await list_remotes(message)
         else:
             button= ButtonMaker()
-            url= f"{config_dict['RC_INDEX_URL']}:{config_dict['RC_INDEX_PORT']}"
+            url= f"{BASE_URL}"
             msg= f'Serving on <a href={url}>{url}</a>'
             button.cb_buildbutton("Stop", "servemenu^stop")
             await sendMarkup(msg, message, button.build_menu(1))
@@ -33,10 +33,6 @@ async def serve_cb(client, callbackQuery):
     data = data.split("^")
     message= query.message
     path = await get_rclone_path(OWNER_ID)
-
-    RC_INDEX_USER= config_dict['RC_INDEX_USER']
-    RC_INDEX_PASS= config_dict['RC_INDEX_PASS']
-    RC_INDEX_PORT= config_dict['RC_INDEX_PORT']
   
     if data[1] == "remote":
         SELECTED_REMOTE.append(data[2]) 
@@ -106,4 +102,3 @@ serve_cb_handler = CallbackQueryHandler(serve_cb, filters= filters.regex("servem
 
 bot.add_handler(serve_handler)
 bot.add_handler(serve_cb_handler)
-        
