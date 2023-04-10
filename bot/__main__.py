@@ -43,7 +43,7 @@ async def restart(client, message):
         Interval[0].cancel()
         Interval.clear()
     await run_sync(clean_all)
-    await (await create_subprocess_exec("pkill", "-9", "-f", "gunicorn|aria2c|rclone|qbittorrent-nox|ffmpeg")).wait()
+    await (await create_subprocess_exec("pkill", "-9", "-f", "aria2c|rclone|ffmpeg")).wait()
     await (await create_subprocess_exec("python3", "update.py")).wait()
     with open(".restartmsg", "w") as f:
         f.truncate(0)
