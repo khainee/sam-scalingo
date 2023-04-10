@@ -303,7 +303,7 @@ if len(LEECH_SPLIT_SIZE) == 0 or int(LEECH_SPLIT_SIZE) > TG_MAX_FILE_SIZE:
 else:
     LEECH_SPLIT_SIZE = int(LEECH_SPLIT_SIZE)
 
-RC_INDEX_PORT = environ.get('PORT', '')
+PORT = environ.get('PORT', '')
 BASE_URL = environ.get('BASE_URL', '')
 RC_INDEX_USER = environ.get('RC_INDEX_USER', '')
 RC_INDEX_PASS = environ.get('RC_INDEX_PASS', '')
