@@ -21,7 +21,7 @@ jobs:
         run: heroku container:login
 
       - name: Push the image to Heroku
-        run: heroku apps:create "${HEROKU_APP_NAME}" && heroku container:push "${IMAGE_NAME}" -a "${HEROKU_APP_NAME}"
+        run: heroku container:push "${IMAGE_NAME}" -a "${HEROKU_APP_NAME}"
         
       - name: Release image to Heroku
         run: heroku container:release "${IMAGE_NAME}" -a "${HEROKU_APP_NAME}"
