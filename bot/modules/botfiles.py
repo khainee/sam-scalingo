@@ -334,7 +334,7 @@ async def config_menu(user_id, message, edit=False):
                buttons.cb_buildbutton("🗂 terabox.txt", f"configmenu^get_terabox.txt^{user_id}")
                buttons.cb_buildbutton("🗑 terabox.txt", f"configmenu^delete_terabox.txt^{user_id}")
           else:
-               buttons.cb_buildbutton("📃 token.pickle", f"configmenu^change_terabox.txt^{user_id}", 'footer_second' )
+               buttons.cb_buildbutton("📃 terabox.txt", f"configmenu^change_terabox.txt^{user_id}", 'footer_second' )
           if ospath.exists("accounts"):
                buttons.cb_buildbutton("🗑 accounts folder", f"configmenu^delete_acc^{user_id}")
           else:
