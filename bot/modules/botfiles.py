@@ -330,6 +330,11 @@ async def config_menu(user_id, message, edit=False):
                buttons.cb_buildbutton("🗑 token.pickle", f"configmenu^delete_pickle^{user_id}")
           else:
                buttons.cb_buildbutton("📃 token.pickle", f"configmenu^change_pickle^{user_id}", 'footer_second' )
+          if ospath.exists("terabox.txt"):
+               buttons.cb_buildbutton("🗂 terabox.txt", f"configmenu^get_terabox.txt^{user_id}")
+               buttons.cb_buildbutton("🗑 terabox.txt", f"configmenu^delete_terabox.txt^{user_id}")
+          else:
+               buttons.cb_buildbutton("📃 token.pickle", f"configmenu^change_terabox.txt^{user_id}", 'footer_second' )
           if ospath.exists("accounts"):
                buttons.cb_buildbutton("🗑 accounts folder", f"configmenu^delete_acc^{user_id}")
           else:
@@ -384,6 +389,12 @@ async def botfiles_callback(client, callback_query):
           except ValueError as err:
                await sendMessage(str(err), message)
           await query.answer()
+     elif cmd[1] == "get_terabox.txt":
+          try:
+               await client.send_document(document="terabox.txt", chat_id=message.chat.id)
+          except ValueError as err:
+               await sendMessage(str(err), message)
+          await query.answer()
      elif cmd[1] == "get_config_env":
           try:
                await client.send_document(document="config.env", chat_id=message.chat.id)
@@ -396,7 +407,7 @@ async def botfiles_callback(client, callback_query):
      elif cmd[1] == "change_grclone_conf" and user_id == OWNER_ID:
           await set_config_listener(client, query, message, True)
           await config_menu(user_id, message, True)
-     elif cmd[1] == "change_pickle" or cmd[1] == "change_acc" or cmd[1] == 'change_config_env' and user_id == OWNER_ID:
+     elif cmd[1] == "change_pickle" or cmd[1] == "change_acc" or cmd[1] == 'change_config_env' or cmd[1] == "change_terabox.txt" and user_id == OWNER_ID:
           await set_config_listener(client, query, message)
           await config_menu(user_id, message, True)
      elif cmd[1] == "delete_config":
@@ -425,6 +436,13 @@ async def botfiles_callback(client, callback_query):
      elif cmd[1] == "delete_pickle":
           try:
                remove("token.pickle")
+          except FileNotFoundError as err:
+               await sendMessage(str(err), message)
+          await query.answer()     
+          await config_menu(user_id, message, True)
+     elif cmd[1] == "delete_terabox.txt":
+          try:
+               remove("terabox.txt")
           except FileNotFoundError as err:
                await sendMessage(str(err), message)
           await query.answer()     
@@ -467,7 +485,14 @@ async def set_config_listener(client, query, message, grclone=False):
                               rclone_path = ospath.join("users", f"{user_id}", "rclone.conf" )
                          path= await client.download_media(response, file_name=rclone_path)
                          if DATABASE_URL:
-                              await DbManager().update_private_file(path) 
+                              await DbManager().update_private_file(path)
+                    if file_name == "terabox.txt"
+                        if ospath.exists('terabox.txt'):
+                            os.remove("terabox.txt')
+                        terabox_path = os.path.join("terabox.txt")
+                    path= await client.download_media(response, file_name=terabox_path)
+                    if DATABASE_URL:
+                        await DbManager().update_private_file(path)
                     else:
                          await client.download_media(response, file_name='./')
                          if file_name == 'accounts.zip':
