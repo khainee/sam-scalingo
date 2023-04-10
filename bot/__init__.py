@@ -352,14 +352,12 @@ if not config_dict:
                    'SUDO_USERS': SUDO_USERS,
                    'TELEGRAM_API_ID': TELEGRAM_API_ID,
                    'TELEGRAM_API_HASH': TELEGRAM_API_HASH,
-                   'TORRENT_TIMEOUT': TORRENT_TIMEOUT,
                    'UPSTREAM_REPO': UPSTREAM_REPO,
                    'UPSTREAM_BRANCH': UPSTREAM_BRANCH,
                    'UPTOBOX_TOKEN': UPTOBOX_TOKEN,
                    'USER_SESSION_STRING': USER_SESSION_STRING,
                    'USE_SERVICE_ACCOUNTS': USE_SERVICE_ACCOUNTS,
-                   'VIEW_LINK': VIEW_LINK,
-                   'WEB_PINCODE': WEB_PINCODE}
+                   'VIEW_LINK': VIEW_LINK}
 
 if not ospath.exists('.netrc'):
     srun(["touch", ".netrc"])
