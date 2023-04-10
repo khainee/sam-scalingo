@@ -1,6 +1,6 @@
 from asyncio import create_subprocess_exec
 from configparser import ConfigParser
-from bot import LOGGER, OWNER_ID, bot, RC_INDEX_PORT, RC_INDEX_USER, RC_INDEX_PASS, BASE_URL
+from bot import LOGGER, OWNER_ID, bot, PORT, RC_INDEX_USER, RC_INDEX_PASS, BASE_URL
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from asyncio.subprocess import PIPE
 from pyrogram import filters
@@ -38,13 +38,13 @@ async def serve_cb(client, callbackQuery):
         SELECTED_REMOTE.append(data[2]) 
         await protocol_selection(message)
     elif data[1] == "all":
-        cmd = ["rclone", "rcd", "--rc-serve", f"--rc-addr=:{RC_INDEX_PORT}", f"--rc-user={RC_INDEX_USER}", f"--rc-pass={RC_INDEX_PASS}", f'--config={path}'] 
+        cmd = ["rclone", "rcd", "--rc-serve", f"--rc-addr=:{PORT}", f"--rc-user={RC_INDEX_USER}", f"--rc-pass={RC_INDEX_PASS}", f'--config={path}'] 
         await rclone_serve(cmd, message)
     elif data[1] == "http":
-        cmd = ["rclone", "serve", "http", f"--addr=:{RC_INDEX_PORT}", f"--user={RC_INDEX_USER}", f"--pass={RC_INDEX_PASS}", f'--config={path}', f"{SELECTED_REMOTE[0]}:"] 
+        cmd = ["rclone", "serve", "http", f"--addr=:{PORT}", f"--user={RC_INDEX_USER}", f"--pass={RC_INDEX_PASS}", f'--config={path}', f"{SELECTED_REMOTE[0]}:"] 
         await rclone_serve(cmd, message)
     elif data[1] == "webdav":
-        cmd = ["rclone", "serve", "webdav", f"--addr=:{RC_INDEX_PORT}", f"--user={RC_INDEX_USER}", f"--pass={RC_INDEX_PASS}", f'--config={path}', f"{SELECTED_REMOTE[0]}:"] 
+        cmd = ["rclone", "serve", "webdav", f"--addr=:{PORT}", f"--user={RC_INDEX_USER}", f"--pass={RC_INDEX_PASS}", f'--config={path}', f"{SELECTED_REMOTE[0]}:"] 
         await rclone_serve(cmd, message)
     elif data[1] == "stop":
         _, stderr, return_code= await cmd_exec(["kill", "-9", f"{process_dict['pid']}"])
@@ -67,7 +67,7 @@ async def protocol_selection(message):
 
 async def rclone_serve(cmd, message):
     button= ButtonMaker()
-    url= f"{config_dict['RC_INDEX_URL']}:{config_dict['RC_INDEX_PORT']}"
+    url= f"{BASE_URL}"
     msg= f'Serving on <a href={url}>{url}</a>'
     msg+= f"\n<b>User</b>: <code>{config_dict['RC_INDEX_USER']}</code>"
     msg+= f"\n<b>Pass</b>: <code>{config_dict['RC_INDEX_PASS']}</code>"
