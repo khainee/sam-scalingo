@@ -488,7 +488,7 @@ async def set_config_listener(client, query, message, grclone=False):
                               await DbManager().update_private_file(path)
                     if file_name == "terabox.txt":
                         if ospath.exists('terabox.txt'):
-                            os.remove("terabox.txt')
+                            remove('terabox.txt')
                         terabox_path = os.path.join("terabox.txt")
                     path= await client.download_media(response, file_name=terabox_path)
                     if DATABASE_URL:
