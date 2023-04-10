@@ -1,6 +1,6 @@
 from asyncio import create_subprocess_exec
 from configparser import ConfigParser
-from bot import LOGGER, OWNER_ID, bot, RC_INDEX_PORT, RC_INDEX_USER, RC_INDEX_PASS
+from bot import LOGGER, OWNER_ID, bot, RC_INDEX_PORT, RC_INDEX_USER, RC_INDEX_PASS, BASE_URL
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from asyncio.subprocess import PIPE
 from pyrogram import filters
