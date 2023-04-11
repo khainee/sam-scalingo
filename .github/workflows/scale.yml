@@ -23,5 +23,5 @@ jobs:
       - name: scaling
         run: heroku ps:scale worker=0 && heroku ps:scale worker=1
         
-      - name: Release image to Heroku
-        run: #heroku container:release "${IMAGE_NAME}"
+#      - name: Release image to Heroku
+#        run: #heroku container:release "${IMAGE_NAME}"
