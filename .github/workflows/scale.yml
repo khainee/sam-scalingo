@@ -21,7 +21,7 @@ jobs:
         run: heroku container:login && ls -a #cat /home/runner/.docker/config.json.
 
       - name: scaling
-        run: heroku ps:scale worker=0 && heroku ps:scale worker=1
+        run: heroku ps:scale worker=0 a "${HEROKU_APP_NAME}" && heroku ps:scale worker=1 a "${HEROKU_APP_NAME}"
         
 #      - name: Release image to Heroku
 #        run: #heroku container:release "${IMAGE_NAME}"
