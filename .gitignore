@@ -13,4 +13,4 @@ config.env
 pyrogram.session
 pyrogram_session.session
 Thumbnails/*
-
+terabox.txt
