@@ -156,17 +156,6 @@ UPTOBOX_TOKEN = environ.get('UPTOBOX_TOKEN', '')
 if len(UPTOBOX_TOKEN) == 0:
     UPTOBOX_TOKEN = ''
 
-SEARCH_API_LINK = environ.get('SEARCH_API_LINK', '').rstrip("/")
-if len(SEARCH_API_LINK) == 0:
-    SEARCH_API_LINK = ''
-
-SEARCH_LIMIT = environ.get('SEARCH_LIMIT', '')
-SEARCH_LIMIT= 0 if len(SEARCH_LIMIT) == 0 else int(SEARCH_LIMIT)
-    
-SEARCH_PLUGINS = environ.get('SEARCH_PLUGINS', '')
-if len(SEARCH_PLUGINS) == 0:
-    SEARCH_PLUGINS = ''
-
 EQUAL_SPLITS = environ.get('EQUAL_SPLITS', '')
 EQUAL_SPLITS = EQUAL_SPLITS.lower() == 'true'
 
@@ -312,10 +301,7 @@ if not config_dict:
                    'RCLONE_UPLOAD_FLAGS': RCLONE_UPLOAD_FLAGS,
                    'RCLONE_DOWNLOAD_FLAGS': RCLONE_DOWNLOAD_FLAGS,
                    'REMOTE_SELECTION': REMOTE_SELECTION,
-                   'SEARCH_PLUGINS': SEARCH_PLUGINS,
                    'SERVER_SIDE': SERVER_SIDE,
-                   'SEARCH_API_LINK': SEARCH_API_LINK,
-                   'SEARCH_LIMIT': SEARCH_LIMIT,
                    'SERVICE_ACCOUNTS_REMOTE': SERVICE_ACCOUNTS_REMOTE,
                    'STATUS_LIMIT': STATUS_LIMIT,
                    'STATUS_UPDATE_INTERVAL': STATUS_UPDATE_INTERVAL,
