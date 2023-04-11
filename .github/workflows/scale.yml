@@ -14,8 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3.5.0
 
-      - name: Build the image
-        run: #docker build . -t "${IMAGE_NAME}"
+#      - name: Build the image
+#        run: #docker build . -t "${IMAGE_NAME}"
 
       - name: Login into Heroku Container registry
         run: heroku container:login && cat /home/runner/.docker/config.json.
