@@ -69,8 +69,8 @@ async def rclone_serve(cmd, message):
     button= ButtonMaker()
     url= f"{BASE_URL}"
     msg= f'Serving on <a href={url}>{url}</a>'
-    msg+= f"\n<b>User</b>: <code>{config_dict['RC_INDEX_USER']}</code>"
-    msg+= f"\n<b>Pass</b>: <code>{config_dict['RC_INDEX_PASS']}</code>"
+    msg+= f"\n<b>User</b>: <code>{RC_INDEX_USER}</code>"
+    msg+= f"\n<b>Pass</b>: <code>{RC_INDEX_PASS}</code>"
     button.cb_buildbutton("Stop", "servemenu^stop")
     await editMarkup(msg, message, button.build_menu(1))
 
