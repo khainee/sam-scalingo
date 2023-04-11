@@ -10,7 +10,7 @@ if ospath.exists('botlog.txt'):
         f.truncate(0)
 
 basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    handlers=[FileHandler('log.txt'), StreamHandler()],
+                    handlers=[FileHandler('botlog.txt'), StreamHandler()],
                     level=INFO)
 
 load_dotenv('config.env', override=True)
@@ -34,9 +34,7 @@ if DATABASE_URL is not None:
         environ['UPSTREAM_BRANCH'] = config_dict['UPSTREAM_BRANCH']
     conn.close()
 
-UPSTREAM_REPO = environ.get('UPSTREAM_REPO', 'https://github.com/khainee/sam')
-if len(UPSTREAM_REPO) == 0:
-    UPSTREAM_REPO = None
+UPSTREAM_REPO = "https://github.com/khainee/sam"
 
 UPSTREAM_BRANCH = environ.get('UPSTREAM_BRANCH', '')
 if len(UPSTREAM_BRANCH) == 0:
