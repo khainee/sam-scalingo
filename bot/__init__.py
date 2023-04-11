@@ -33,7 +33,7 @@ load_dotenv('config.env', override=True)
 
 basicConfig(level= INFO,
     format= "%(asctime)s %(levelname)s %(threadName)s %(name)s %(message)s",
-    handlers=[StreamHandler(), FileHandler("botlog.txt")])
+    handlers=[FileHandler("botlog.txt")])
 
 Interval = []
 GLOBAL_EXTENSION_FILTER = ['.aria2']
