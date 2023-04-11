@@ -472,41 +472,38 @@ async def set_config_listener(client, query, message, grclone=False):
           await client.send_message(message.chat.id, text="Too late 60s gone, try again!")
      else:
           try:
-               if response:
-                    if response.text:
-                         if "/ignore" in response.text:
-                              await client.listen.Cancel(filters.user(user_id))
-                              await query.answer()
-                    else:
-                         file_name = response.document.file_name
-                         if file_name == "rclone.conf":
-                              if grclone:
-                                   rclone_path = ospath.join("users", "grclone", "rclone.conf" )
-                              else:
-                                   rclone_path = ospath.join("users", f"{user_id}", "rclone.conf" )
-                              path= await client.download_media(response, file_name=rclone_path)
-                              if DATABASE_URL:
-                                   await DbManager().update_private_file(path)
-                         else:
-                              await client.download_media(response, file_name='./')
-                              if file_name == 'accounts.zip':
-                                   if ospath.exists('accounts'):
-                                        await(await create_subprocess_exec("rm", "-rf", "accounts")).wait()
-                                   await(await create_subprocess_exec("7z", "x", "-o.", "-aoa", "accounts.zip", "accounts/*.json")).wait()
-                                   await(await create_subprocess_exec("chmod", "-R", "777", "accounts")).wait()
-                              elif file_name in ['.netrc', 'netrc']:
-                                   await(await create_subprocess_exec("touch", ".netrc")).wait()
-                                   await(await create_subprocess_exec("cp", ".netrc", "/root/.netrc")).wait()
-                                   await(await create_subprocess_exec("chmod", "600", ".netrc")).wait()
-                              elif file_name == "config.env":
-                                   load_dotenv('config.env', override=True)
-                                   await load_config()
-                              if DATABASE_URL and file_name != 'config.env':
-                                   await DbManager().update_private_file(file_name)       
-                         if ospath.exists('accounts.zip'):
-                              remove('accounts.zip')
+               if response.text:
+                    if "/ignore" in response.text:
+                         await client.listen.Cancel(filters.user(user_id))
+                         await query.answer()
                else:
-                    await client.send_message(message.chat.id, text="No message received")
+                    file_name = response.document.file_name
+                    if file_name == "rclone.conf":
+                         if grclone:
+                              rclone_path = ospath.join("users", "grclone", "rclone.conf" )
+                         else:
+                              rclone_path = ospath.join("users", f"{user_id}", "rclone.conf" )
+                         path= await client.download_media(response, file_name=rclone_path)
+                         if DATABASE_URL:
+                              await DbManager().update_private_file(path)
+                    else:
+                         await client.download_media(response, file_name='./')
+                         if file_name == 'accounts.zip':
+                              if ospath.exists('accounts'):
+                                   await(await create_subprocess_exec("rm", "-rf", "accounts")).wait()
+                              await(await create_subprocess_exec("7z", "x", "-o.", "-aoa", "accounts.zip", "accounts/*.json")).wait()
+                              await(await create_subprocess_exec("chmod", "-R", "777", "accounts")).wait()
+                         elif file_name in ['.netrc', 'netrc']:
+                              await(await create_subprocess_exec("touch", ".netrc")).wait()
+                              await(await create_subprocess_exec("cp", ".netrc", "/root/.netrc")).wait()
+                              await(await create_subprocess_exec("chmod", "600", ".netrc")).wait()
+                         elif file_name == "config.env":
+                              load_dotenv('config.env', override=True)
+                              await load_config()
+                         if DATABASE_URL and file_name != 'config.env':
+                              await DbManager().update_private_file(file_name)       
+                    if ospath.exists('accounts.zip'):
+                         remove('accounts.zip')
           except Exception as ex:
                await sendMessage(str(ex), message) 
      finally:
