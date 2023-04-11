@@ -306,7 +306,10 @@ else:
 PORT = environ.get('PORT', '')
 BASE_URL = environ.get('BASE_URL', '')
 RC_INDEX_USER = environ.get('RC_INDEX_USER', '')
-RC_INDEX_PASS = environ.get('RC_INDEX_PASS', '')
+RC_INDEX_USER = 'admin' if len(RC_INDEX_USER) == 0 else RC_INDEX_USER
+
+RC_INDEX_PASS= environ.get('RC_INDEX_PASS', '')
+RC_INDEX_PASS = 'admin' if len(RC_INDEX_PASS) == 0 else RC_INDEX_PASS
 
 if not config_dict:
     config_dict = {'AS_DOCUMENT': AS_DOCUMENT,
