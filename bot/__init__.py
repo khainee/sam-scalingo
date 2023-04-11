@@ -53,10 +53,6 @@ status_dict = {}
 # Value: telegram.Message
 status_reply_dict = {}
 
-# key: rss_title
-# value: [rss_feed, last_link, last_title, filter]
-rss_dict = {}
-
 m_queue = Queue()
 l_queue = Queue()
 
@@ -213,16 +209,6 @@ SERVER_SIDE = SERVER_SIDE.lower() == 'true'
 
 CMD_INDEX = environ.get('CMD_INDEX', '')
 
-RSS_CHAT_ID = environ.get('RSS_CHAT_ID', '')
-RSS_CHAT_ID = '' if len(RSS_CHAT_ID) == 0 else int(RSS_CHAT_ID)
-
-RSS_DELAY = environ.get('RSS_DELAY', '')
-RSS_DELAY = 900 if len(RSS_DELAY) == 0 else int(RSS_DELAY)
-
-RSS_COMMAND = environ.get('RSS_COMMAND', '')
-if len(RSS_COMMAND) == 0:
-    RSS_COMMAND = ''
-
 UPSTREAM_REPO = environ.get('UPSTREAM_REPO', '')
 if len(UPSTREAM_REPO) == 0:
    UPSTREAM_REPO = ''
@@ -289,13 +275,6 @@ if len(USER_SESSION_STRING) != 0:
                 app.stop()
                 exit(1)
 
-RSS_USER_SESSION_STRING = environ.get('RSS_USER_SESSION_STRING', '')
-if len(RSS_USER_SESSION_STRING) == 0:
-    rss_session = None
-else:
-    LOGGER.info("Creating client from RSS_USER_SESSION_STRING")
-    rss_session = Client(name='rss_session', api_id=TELEGRAM_API_ID, api_hash=TELEGRAM_API_HASH, session_string=RSS_USER_SESSION_STRING, no_updates=True)
-
 TG_MAX_FILE_SIZE= 4194304000 if IS_PREMIUM_USER else 2097152000
 LEECH_SPLIT_SIZE = environ.get('LEECH_SPLIT_SIZE', '')
 if len(LEECH_SPLIT_SIZE) == 0 or int(LEECH_SPLIT_SIZE) > TG_MAX_FILE_SIZE:
@@ -333,10 +312,6 @@ if not config_dict:
                    'RCLONE_UPLOAD_FLAGS': RCLONE_UPLOAD_FLAGS,
                    'RCLONE_DOWNLOAD_FLAGS': RCLONE_DOWNLOAD_FLAGS,
                    'REMOTE_SELECTION': REMOTE_SELECTION,
-                   'RSS_USER_SESSION_STRING': RSS_USER_SESSION_STRING,
-                   'RSS_CHAT_ID': RSS_CHAT_ID,
-                   'RSS_COMMAND': RSS_COMMAND,
-                   'RSS_DELAY': RSS_DELAY,
                    'SEARCH_PLUGINS': SEARCH_PLUGINS,
                    'SERVER_SIDE': SERVER_SIDE,
                    'SEARCH_API_LINK': SEARCH_API_LINK,
