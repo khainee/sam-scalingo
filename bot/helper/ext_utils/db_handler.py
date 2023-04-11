@@ -1,7 +1,7 @@
 from os import path as ospath, makedirs
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import PyMongoError
-from bot import DATABASE_URL, user_data, rss_dict, LOGGER, bot_id, config_dict, aria2_options, botloop
+from bot import DATABASE_URL, user_data, LOGGER, bot_id, config_dict, aria2_options, botloop
 
 
 
@@ -43,15 +43,6 @@ class DbManager:
                     row['thumb'] = path
                 user_data[uid] = row
             LOGGER.info("Users data has been imported from Database")
-        # Rss Data
-        if await self.__db.rss[bot_id].find_one():
-            rows = self.__db.rss[bot_id].find({})  # return a dict ==> {_id, link, last_feed, last_name, filters}
-            async for row in rows:
-                title = row['_id']
-                del row['_id']
-                rss_dict[title] = row
-            LOGGER.info("Rss data has been imported from Database.")
-        self.__conn.close()
 
     async def update_config(self, dict_):
         if self.__err:
@@ -95,18 +86,6 @@ class DbManager:
         else:
             image_bin = ''
         await self.__db.users.update_one({'_id': user_id}, {'$set': {'thumb': image_bin}}, upsert=True)
-        self.__conn.close()
-
-    async def rss_update(self, title):
-        if self.__err:
-            return
-        await self.__db.rss[bot_id].update_one({'_id': title}, {'$set': rss_dict[title]}, upsert=True)
-        self.__conn.close()
-
-    async def rss_delete(self, title):
-        if self.__err:
-            return
-        await self.__db.rss[bot_id].delete_one({'_id': title})
         self.__conn.close()
 
     async def trunc_table(self, name):
