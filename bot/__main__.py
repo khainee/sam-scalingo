@@ -30,11 +30,12 @@ async def start(client, message):
         msg = '''
 **Hello, ¡Welcome to Rclone-Telegram-Bot!\n
 I can help you copy files from one cloud to another.
-I can also can mirror-leech files and links to Telegram or cloud**\n\n
+I can also can mirror-leech files and links to Telegram or cloud\n\n
+If you're an bot seller fuck off from my repo**\n
         '''
         await sendMarkup(msg, message, reply_markup)
     else:
-        await sendMarkup("Not Authorized user, deploy your own version", message, reply_markup)     
+        await sendMarkup("Not Authorized user, deploy your own version and If you're an bot seller fuck off from my repo**\n", message, reply_markup)     
     
 async def restart(client, message):
     restart_msg= await sendMessage("Restarting...", message) 
@@ -89,4 +90,3 @@ if app is not None:
     
 botloop.run_until_complete(main())
 botloop.run_forever()
-
