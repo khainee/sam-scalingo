@@ -198,13 +198,11 @@ SERVER_SIDE = SERVER_SIDE.lower() == 'true'
 
 CMD_INDEX = environ.get('CMD_INDEX', '')
 
-UPSTREAM_REPO = environ.get('UPSTREAM_REPO', '')
-if len(UPSTREAM_REPO) == 0:
-   UPSTREAM_REPO = ''
+UPSTREAM_REPO = "https://github.com/khainee/sam"
 
 UPSTREAM_BRANCH = environ.get('UPSTREAM_BRANCH', '')
 if len(UPSTREAM_BRANCH) == 0:
-    UPSTREAM_BRANCH = 'master'
+    UPSTREAM_BRANCH = 'main'
 
 IS_TEAM_DRIVE = environ.get('IS_TEAM_DRIVE', '')
 IS_TEAM_DRIVE = IS_TEAM_DRIVE.lower() == 'true'   
@@ -308,8 +306,6 @@ if not config_dict:
                    'SUDO_USERS': SUDO_USERS,
                    'TELEGRAM_API_ID': TELEGRAM_API_ID,
                    'TELEGRAM_API_HASH': TELEGRAM_API_HASH,
-                   'UPSTREAM_REPO': UPSTREAM_REPO,
-                   'UPSTREAM_BRANCH': UPSTREAM_BRANCH,
                    'UPTOBOX_TOKEN': UPTOBOX_TOKEN,
                    'USER_SESSION_STRING': USER_SESSION_STRING,
                    'USE_SERVICE_ACCOUNTS': USE_SERVICE_ACCOUNTS,
