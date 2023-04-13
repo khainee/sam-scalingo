@@ -9,6 +9,7 @@ from bot.helper.ext_utils.filters import CustomFilters
 from bot.helper.ext_utils.menu_utils import Menus, rcloneListButtonMaker
 from bot.helper.ext_utils.message_utils import editMessage, sendMarkup, sendMessage
 from bot.helper.ext_utils.button_build import ButtonMaker
+from bot.helper.ext_utils.bot_commands import BotCommands
 from bot.helper.ext_utils.rclone_data_holder import get_rclone_data, update_rclone_data
 from configparser import ConfigParser            
             
@@ -22,7 +23,7 @@ async def is_remote_selected(user_id, message):
         elif get_rclone_data("CLOUD_SELECT_REMOTE", user_id) or len(remotes_multi) > 0:
             return True
         else:
-            await sendMessage("Select a cloud first, use /cloudselect", message)
+            await sendMessage(f"Select a cloud first, use /{BotCommands.CloudSelectCommand} ", message)
             return False
     else:
         return True
@@ -30,7 +31,7 @@ async def is_remote_selected(user_id, message):
 async def is_rclone_config(user_id, message, isLeech=False):
     if config_dict['MULTI_RCLONE_CONFIG'] or CustomFilters._owner_query(user_id):
         path= ospath.join("users", f'{user_id}', "rclone.conf")
-        msg= "Send a rclone config file, use /botfiles command"
+        msg= f"Send a rclone config file, use /{BotCommands.BotFilesCommand} command"
     else:
         path= ospath.join("users", "grclone", "rclone.conf")
         msg= "Global rclone not found"
