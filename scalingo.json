@@ -1,0 +1,10 @@
+{
+	"name": "Rclone bot",
+	"description": "Powerful Telegram Bot to clone your data in Google Drive",
+	"repository": "https://github.com/khainee/sam",
+	"keywords": ["Rclone","Telegram","Gclone"],
+	"repository": "https://github.com/khainee/sam",
+        "website": "https://t.me/drivetalk",
+	},
+    	"stack": "container"
+}
