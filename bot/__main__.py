@@ -22,20 +22,19 @@ print("Successfully deployed!!")
 
 async def start(client, message):
     buttons = ButtonMaker()
-    buttons.url_buildbutton("Join_group", "https://t.me/drivetalk")
+    buttons.url_buildbutton("Support Group", "https://t.me/drivetalk")
     buttons.url_buildbutton("Modified_by", "https://t.me/khainezay_1")
-    buttons.url_buildbutton("Original_Author", "https://github.com/Sam-Max")
+    buttons.url_buildbutton("Join Group", "https://t.me/+-TlAfG4W-0o0NzZl")
     reply_markup = buttons.build_menu(2)
     if await CustomFilters.user_filter(client, message) or await CustomFilters.chat_filter(client, message):
         msg = '''
 **Hello, ¡Welcome to Rclone-Telegram-Bot!\n
 I can help you copy files from one cloud to another.
-I can also can mirror-leech files and links to Telegram or cloud\n\n
-If you're an bot seller fuck off from my repo**\n
+I can also can mirror-leech files and links to Telegram or cloud**\n
         '''
         await sendMarkup(msg, message, reply_markup)
     else:
-        await sendMarkup("Not Authorized user, deploy your own version and If you're an bot seller fuck off from my repo**\n", message, reply_markup)     
+        await sendMarkup("Not Authorized user, Use me on group**\n", message, reply_markup)     
     
 async def restart(client, message):
     restart_msg= await sendMessage("Restarting...", message) 
