@@ -476,6 +476,7 @@ async def set_config_listener(client, query, message, grclone=False):
                     if "/ignore" in response.text:
                          await client.listen.Cancel(filters.user(user_id))
                          await query.answer()
+                         await client.delete_messages(chat_id=response.chat.id, message_ids=response.id)
                else:
                     file_name = response.document.file_name
                     if file_name == "rclone.conf":
