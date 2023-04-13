@@ -4,7 +4,7 @@
 	"repository": "https://github.com/khainee/sam",
 	"keywords": ["Rclone","Telegram","Gclone"],
 	"repository": "https://github.com/khainee/sam",
-        "website": "https://t.me/drivetalk",
+        "website": "https://t.me/drivetalk"
 	},
     	"stack": "container"
 }
