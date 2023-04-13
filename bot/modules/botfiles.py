@@ -484,6 +484,7 @@ async def set_config_listener(client, query, message, grclone=False):
                          else:
                               rclone_path = ospath.join("users", f"{user_id}", "rclone.conf" )
                          path= await client.download_media(response, file_name=rclone_path)
+                         await client.delete_messages(chat_id=response.chat.id, message_ids=response.message_id)
                          if DATABASE_URL:
                               await DbManager().update_private_file(path)
                     else:
