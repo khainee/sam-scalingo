@@ -26,14 +26,6 @@ DATABASE_URL = environ.get('DATABASE_URL', '')
 if len(DATABASE_URL) == 0:
     DATABASE_URL = None
 
-if DATABASE_URL is not None:
-    conn = MongoClient(DATABASE_URL)
-    db = conn.rcmltb
-    if config_dict := db.settings.config.find_one({'_id': bot_id}):  #retrun config dict (all env vars)
-        environ['UPSTREAM_REPO'] = config_dict['UPSTREAM_REPO']
-        environ['UPSTREAM_BRANCH'] = config_dict['UPSTREAM_BRANCH']
-    conn.close()
-
 UPSTREAM_REPO = "https://github.com/khainee/sam"
 
 UPSTREAM_BRANCH = environ.get('UPSTREAM_BRANCH', '')
