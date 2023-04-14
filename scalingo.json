@@ -1,12 +1,7 @@
 {
-  "buildpacks": [
-    "https://github.com/heroku/heroku-buildpack-apt.git",
-    "https://github.com/Scalingo/python-buildpack.git"
-  ],
-  "name": "Rclone bot",
-  "description": "sample rclone bot",
+  "name": "Sample Python Flask",
+  "description": "Sample Python web application using the Flask framework",
   "logo": "https://scalingo.com/logo.svg",
-  "repository": "https://github.com/Scalingo/sample-python-flask",
-  "website": "https://t.me/drivetalk"
-  "stack": "container"
+  "repository": "https://github.com/khainee/sam-scalingo",
+  "website": "https://sample-python-flask.scalingo.io"
 }
