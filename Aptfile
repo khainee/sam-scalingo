@@ -1,4 +1,4 @@
-:repo:deb http://cz.archive.ubuntu.com/ubuntu universe restricted multiverse
+:repo:deb http://archive.ubuntu.com/ubuntu jammy main universe restricted multiverse
 python3
 python3-pip
 python3-lxml
